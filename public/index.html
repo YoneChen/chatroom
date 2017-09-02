@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="app chat-page hide">
+        <div class="chat-frame">
+        </div>
+        <div class="edit-frame">
+            <textarea class="edit-box"></textarea><button class="btn send-btn">发送</button>
+        </div>
+        
+    </section>
+    <section class="app login-page">
+        <input maxlength="10" class="nickname-input" type="text" placeholder="输入昵称">
+        <button class="btn login-btn">确定</button>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
