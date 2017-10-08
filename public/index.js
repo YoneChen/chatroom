@@ -53,11 +53,11 @@ class Chat {
             this.data.connected = true;
             loginPage.setAttribute('hide','');
             chatPage.removeAttribute('hide');
-        })
-        this.socket.on('user joined', ({username}) => {
+        });
+        this.socket.on('user joined', ({username,numUsers}) => {
             chatdom.innerHTML += `
             <p class="chat-tip">
-                ${username} 进入了聊天室
+                ${username} 进入了聊天室，在线人数：${numUsers}
             </p>`;
         });
         this.socket.on('new message',msg => {
@@ -68,6 +68,12 @@ class Chat {
                 <div class="message">${message}</div>
             </div>`;
 
+        });
+        this.socket.on('user left', ({username,numUsers}) => {
+            chatdom.innerHTML += `
+            <p class="chat-tip">
+                ${username} 退出了聊天室，在线人数：${numUsers}
+            </p>`;
         });
     }
     get Username() {
