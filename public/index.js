@@ -12,16 +12,20 @@ class Chat {
         }
         this.bindEvent();
         this.data = {
-            myname: '',
+            myname: this.Username || '',
             connected: false
             // history: this.chatHistory()
-        }
+        };
+        this.checkInfo();
+    }
+    checkInfo() {
+        if (this.data.myname) this.socket.emit('add user',this.data.myname);
     }
     bindEvent() {
         const {loginPage,chatPage,nameInput,chatdom,sendBtn,loginBtn,editdom} = this.el;
         // const {myname,connected} = this.data;
         loginBtn.addEventListener("click",e => {
-            this.data.myname = nameInput.value;
+            this.data.myname = this.Username = nameInput.value;
             this.socket.emit('add user',this.data.myname);
         });
         sendBtn.addEventListener('click',e => {
@@ -66,11 +70,17 @@ class Chat {
 
         });
     }
+    get Username() {
+        return localStorage.getItem('username');
+    }
+    set Username(val) {
+        localStorage.setItem('username',val);
+    }
     get chatHistory() {
-        return localStorage.getItem(`${this.data.myname}-chathistory`)
+        return localStorage.getItem(`${this.Username}-chathistory`)
     }
     set chatHistory(val) {
-        localStorage.setItem(`${this.data.myname}-chathistory`,val);
+        localStorage.setItem(`${this.Username}-chathistory`,val);
     }
 }
 new Chat();
